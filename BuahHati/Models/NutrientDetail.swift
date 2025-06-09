@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 
+@Model
 public class NutrientDetail {
     var id : UUID
     var nutrient : Nutrient

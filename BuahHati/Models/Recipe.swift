@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 
+@Model
 public class Recipe{
     var id : UUID
     var name : String

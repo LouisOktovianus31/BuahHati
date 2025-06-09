@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 
+@Model
 public class Nutrient {
     var id : UUID
     var name : String
