@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 
+@Model
 public class StorageInstruction {
     var id : UUID
     var fruit : Fruit
