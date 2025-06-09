@@ -1,13 +1,8 @@
-//
-//  ContentView.swift
-//  BuahHati
-//
-//  Created by Louis Oktovianus on 09/06/25.
-//
 import SwiftUI
 
 struct ContentView: View {
     @StateObject private var cameraManager = CameraManager()
+    @Environment(\.dismiss) private var dismiss // Access navigation dismiss action
     
     var body: some View {
         ZStack {
@@ -31,6 +26,7 @@ struct ContentView: View {
                             }
                             Button(action: {
                                 cameraManager.stopSession()
+                                dismiss() // Navigate back to MenuView
                             }) {
                                 Text("Quit")
                                     .font(.title3)
@@ -64,8 +60,6 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+#Preview {
+    ContentView()
 }
