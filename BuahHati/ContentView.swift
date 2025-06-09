@@ -4,7 +4,6 @@
 //
 //  Created by Louis Oktovianus on 09/06/25.
 //
-
 import SwiftUI
 
 struct ContentView: View {
@@ -16,16 +15,25 @@ struct ContentView: View {
                 if cameraManager.isCameraRunning {
                     CameraView(cameraManager: cameraManager)
                         .ignoresSafeArea()
-                    // Quit button
+                    // Quit button and label
                     VStack {
                         Spacer()
                         HStack {
                             Spacer()
+                            // Display label and confidence
+                            if !cameraManager.classificationLabel.isEmpty {
+                                Text("\(cameraManager.classificationLabel) (\(String(format: "%.2f", cameraManager.classificationConfidence * 100))%)")
+                                    .font(.title3)
+                                    .padding()
+                                    .background(Color.black.opacity(0.7))
+                                    .foregroundColor(.white)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                            }
                             Button(action: {
                                 cameraManager.stopSession()
                             }) {
                                 Text("Quit")
-                                    .font(.title2)
+                                    .font(.title3)
                                     .padding()
                                     .background(Color.red)
                                     .foregroundColor(.white)
@@ -33,6 +41,7 @@ struct ContentView: View {
                             }
                             .padding()
                         }
+                        .padding(.trailing)
                     }
                 } else {
                     Text("Camera Stopped")

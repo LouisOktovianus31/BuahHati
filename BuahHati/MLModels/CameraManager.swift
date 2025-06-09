@@ -5,13 +5,18 @@
 //  Created by Hendrik Nicolas Carlo on 09/06/25.
 //
 import AVFoundation
+import CoreML
+import Vision
 
-class CameraManager: NSObject, ObservableObject {
+class CameraManager: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     @Published var isAuthorized = true
     @Published var permissionMessage = ""
     @Published var isCameraRunning = false
+    @Published var classificationLabel: String = "" // Stores the predicted label
+    @Published var classificationConfidence: Double = 0.0 // Stores the confidence score
     private let session = AVCaptureSession()
     private var previewLayer: AVCaptureVideoPreviewLayer?
+    private var visionModel: VNCoreMLModel?
     
     override init() {
         super.init()
@@ -54,7 +59,7 @@ class CameraManager: NSObject, ObservableObject {
         if session.canAddInput(input) {
             session.addInput(input)
         }
-        
+ 
         previewLayer = AVCaptureVideoPreviewLayer(session: session)
         previewLayer?.videoGravity = .resizeAspectFill
     }
@@ -71,6 +76,7 @@ class CameraManager: NSObject, ObservableObject {
     func stopSession() {
         session.stopRunning()
         isCameraRunning = false
+
     }
     
     func getPreviewLayer() -> AVCaptureVideoPreviewLayer? {

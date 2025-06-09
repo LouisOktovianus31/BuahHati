@@ -4,7 +4,6 @@
 //
 //  Created by Hendrik Nicolas Carlo on 09/06/25.
 //
-
 import SwiftUI
 import AVFoundation
 
@@ -26,4 +25,3 @@ struct CameraView: UIViewControllerRepresentable {
         }
     }
 }
-
