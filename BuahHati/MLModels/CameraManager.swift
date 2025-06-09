@@ -21,7 +21,6 @@ class CameraManager: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleB
     override init() {
         super.init()
         setupSession()
-        setupVisionModel()
     }
     
     func checkPermissions() {
@@ -60,29 +59,9 @@ class CameraManager: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleB
         if session.canAddInput(input) {
             session.addInput(input)
         }
-        
-        // Add video data output for real-time frame processing
-        let dataOutput = AVCaptureVideoDataOutput()
-        dataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "videoQueue"))
-        if session.canAddOutput(dataOutput) {
-            session.addOutput(dataOutput)
-        }
-        
+ 
         previewLayer = AVCaptureVideoPreviewLayer(session: session)
         previewLayer?.videoGravity = .resizeAspectFill
-    }
-    
-    private func setupVisionModel() {
-        // Load the avocado_v1_60 model
-        guard let model = try? avocado_v1_60(configuration: MLModelConfiguration()) else {
-            print("Failed to load avocado_v1_60 model.")
-            return
-        }
-        do {
-            visionModel = try VNCoreMLModel(for: model.model)
-        } catch {
-            print("Failed to create Vision model: \(error)")
-        }
     }
     
     func startSession() {
@@ -97,38 +76,10 @@ class CameraManager: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleB
     func stopSession() {
         session.stopRunning()
         isCameraRunning = false
-        classificationLabel = ""
-        classificationConfidence = 0.0
+
     }
     
     func getPreviewLayer() -> AVCaptureVideoPreviewLayer? {
         return previewLayer
-    }
-    
-    // Handle camera frame for inference
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer),
-              let visionModel = visionModel else { return }
-        
-        let request = VNCoreMLRequest(model: visionModel) { [weak self] request, error in
-            guard let self = self,
-                  let results = request.results as? [VNClassificationObservation],
-                  let topResult = results.first else { return }
-            
-            DispatchQueue.main.async {
-                self.classificationLabel = topResult.identifier
-                self.classificationConfidence = Double(topResult.confidence)
-            }
-        }
-        
-        // Assuming the model expects 224x224 input (adjust if different)
-        request.imageCropAndScaleOption = .centerCrop
-        
-        do {
-            let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
-            try handler.perform([request])
-        } catch {
-            print("Vision request failed: \(error)")
-        }
     }
 }
