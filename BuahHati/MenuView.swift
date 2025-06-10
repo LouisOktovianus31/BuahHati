@@ -18,7 +18,7 @@ struct MenuView: View {
                     .padding(.horizontal)
                 
                 // Scan Button
-                NavigationLink(destination: ContentView()) {
+                NavigationLink(destination: ScanView()) {
                     HStack {
                         Text("Scan Here")
                             .fontWeight(.medium)

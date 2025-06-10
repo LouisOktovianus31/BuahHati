@@ -1,16 +1,19 @@
 import AVFoundation
 import CoreML
 import Vision
+import UIKit
 
-class CameraManager: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleBufferDelegate {
+class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     @Published var isAuthorized = true
     @Published var permissionMessage = ""
     @Published var isCameraRunning = false
     @Published var classificationLabel: String = "" // Stores the predicted label
     @Published var classificationConfidence: Double = 0.0 // Stores the confidence score
+    @Published var capturedImage: UIImage? // Stores the captured image
     private let session = AVCaptureSession()
     private var previewLayer: AVCaptureVideoPreviewLayer?
     private var visionModel: VNCoreMLModel?
+    private var photoOutput: AVCapturePhotoOutput?
     
     override init() {
         super.init()
@@ -43,7 +46,7 @@ class CameraManager: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleB
     }
     
     private func setupSession() {
-        session.sessionPreset = .high
+        session.sessionPreset = .photo
         
         guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
               let input = try? AVCaptureDeviceInput(device: device) else {
@@ -55,11 +58,10 @@ class CameraManager: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleB
             session.addInput(input)
         }
         
-        // Add video data output for real-time frame processing
-        let dataOutput = AVCaptureVideoDataOutput()
-        dataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "videoQueue"))
-        if session.canAddOutput(dataOutput) {
-            session.addOutput(dataOutput)
+        // Add photo output for capturing still images
+        photoOutput = AVCapturePhotoOutput()
+        if let photoOutput = photoOutput, session.canAddOutput(photoOutput) {
+            session.addOutput(photoOutput)
         }
         
         previewLayer = AVCaptureVideoPreviewLayer(session: session)
@@ -93,21 +95,46 @@ class CameraManager: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleB
         isCameraRunning = false
         classificationLabel = ""
         classificationConfidence = 0.0
+        capturedImage = nil
     }
     
     func getPreviewLayer() -> AVCaptureVideoPreviewLayer? {
         return previewLayer
     }
     
-    // Handle camera frame for inference
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer),
-              let visionModel = visionModel else { return }
+    // Capture a single photo
+    func capturePhoto() {
+        guard let photoOutput = photoOutput else { return }
+        
+        let settings = AVCapturePhotoSettings()
+        settings.flashMode = .auto
+        photoOutput.capturePhoto(with: settings, delegate: self)
+    }
+    
+    // Handle captured photo
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        guard let imageData = photo.fileDataRepresentation(),
+              let uiImage = UIImage(data: imageData),
+              let ciImage = CIImage(data: imageData),
+              let visionModel = visionModel else {
+            print("Failed to process captured photo")
+            return
+        }
+        
+        // Stop the camera session
+        session.stopRunning()
+        DispatchQueue.main.async {
+            self.isCameraRunning = false
+            self.capturedImage = uiImage
+        }
         
         let request = VNCoreMLRequest(model: visionModel) { [weak self] request, error in
             guard let self = self,
                   let results = request.results as? [VNClassificationObservation],
-                  let topResult = results.first else { return }
+                  let topResult = results.first else {
+                print("No classification results")
+                return
+            }
             
             DispatchQueue.main.async {
                 self.classificationLabel = topResult.identifier
@@ -115,11 +142,10 @@ class CameraManager: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleB
             }
         }
         
-        // Assuming the model expects 224x224 input (adjust if different)
         request.imageCropAndScaleOption = .centerCrop
         
         do {
-            let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
+            let handler = VNImageRequestHandler(ciImage: ciImage, options: [:])
             try handler.perform([request])
         } catch {
             print("Vision request failed: \(error)")

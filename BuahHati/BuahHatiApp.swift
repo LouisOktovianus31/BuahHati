@@ -11,7 +11,7 @@ import SwiftUI
 struct BuahHatiApp: App {
     var body: some Scene {
         WindowGroup {
-            MenuView()
+            ContentView()
         }
     }
 }
