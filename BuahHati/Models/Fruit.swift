@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 public class Fruit{
-    var id : UUID
+    public var id : UUID
     var name : String
     
     init (name : String){

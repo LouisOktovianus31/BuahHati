@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 public class Recipe{
-    var id : UUID
+    public var id : UUID
     var name : String
     var ripeness : [Ripeness]
     var details : [String]
