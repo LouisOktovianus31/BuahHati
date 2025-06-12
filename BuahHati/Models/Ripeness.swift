@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Ripeness : String{
+enum Ripeness : String, Codable{
     case unripe = "Unripe"
     case breaking = "Breaking"
     case ripeFirstPhase = "Ripe (First Phase)"

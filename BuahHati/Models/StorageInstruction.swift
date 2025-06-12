@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 public class StorageInstruction {
-    var id : UUID
+    public var id : UUID
     var fruit : Fruit
     var ripeness : Ripeness
     var isOpen : Bool

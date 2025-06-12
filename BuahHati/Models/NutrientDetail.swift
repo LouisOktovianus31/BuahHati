@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 public class NutrientDetail {
-    var id : UUID
+    public var id : UUID
     var nutrient : Nutrient
     var value : Int
     var uom : String
