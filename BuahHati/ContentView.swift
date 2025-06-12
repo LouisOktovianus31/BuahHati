@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  BuahHati
-//
-//  Created by Louis Oktovianus on 09/06/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -25,7 +18,6 @@ struct ContentView: View {
                     Label("How 2 Store", systemImage: "archivebox")
                 }
         }
-    }
 }
 
 #Preview {
