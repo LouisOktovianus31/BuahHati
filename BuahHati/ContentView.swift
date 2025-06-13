@@ -18,6 +18,7 @@ struct ContentView: View {
                     Label("How 2 Store", systemImage: "archivebox")
                 }
         }
+    }
 }
 
 #Preview {
