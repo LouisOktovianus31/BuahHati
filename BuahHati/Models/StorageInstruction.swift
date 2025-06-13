@@ -14,13 +14,21 @@ public class StorageInstruction {
     var fruit : Fruit
     var ripeness : Ripeness
     var isOpen : Bool
-    var instructions : [String] = []
+    var instructionsRaw : String = ""
     
-    init (fruit: Fruit, ripeness: Ripeness, isOpen: Bool, instructions : [String]) {
+    @Transient
+    var instructions : [Substring] {
+        get {
+            return instructionsRaw.split(separator: "|")
+            
+        }
+    }
+    
+    init (fruit: Fruit, ripeness: Ripeness, isOpen: Bool, instructions : String) {
         self.id = UUID()
         self.fruit = fruit
         self.ripeness = ripeness
         self.isOpen = isOpen
-        self.instructions = instructions
+        self.instructionsRaw = instructions
     }
 }
