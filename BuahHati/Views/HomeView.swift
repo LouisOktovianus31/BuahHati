@@ -51,7 +51,7 @@ public struct HomeView: View {
                         Color(.clear)
                             .frame(width: 250, height: 250)
                     }
-                    .border(Color.white, width: 4)
+                    // .border(Color.white, width: 4)
                     .padding(.top, 100)
                 }
             }

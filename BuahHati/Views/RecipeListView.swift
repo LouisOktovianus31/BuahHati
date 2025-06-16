@@ -1,10 +1,3 @@
-//
-//  RecipeListView.swift
-//  BuahHati
-//
-//  Created by Evan Lokajaya on 15/06/25.
-//
-
 import SwiftUI
 
 struct RecipeListView: View {
@@ -18,6 +11,8 @@ struct RecipeListView: View {
             ZStack {
                 Color("BackgroundColor").ignoresSafeArea(edges: .all)
                 VStack {
+                    
+                    // MARK: Filter Horizontal
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             QuickFilterComponent(symbol: "heart.fill", title: "Favorit", isSelected: $viewModel.selectQuickFilterFavorite)
@@ -32,42 +27,51 @@ struct RecipeListView: View {
                                 .onTapGesture {
                                     viewModel.toggleQuickFilterRipe()
                                 }
-                            QuickFilterComponent(title: "Terlalu Matang", isSelected: $viewModel.selectQuickFilterOverripe).onTapGesture {
+                            QuickFilterComponent(title: "Terlalu Matang", isSelected: $viewModel.selectQuickFilterOverripe)
+                                .onTapGesture {
                                     viewModel.toggleQuickFilterOverripe()
                                 }
                         }
+                        .padding(.horizontal, 10)
                     }
-                    .padding(.horizontal, 10)
+
+                    // MARK: List of Recipes
                     ScrollView(.vertical) {
                         LazyVStack(spacing: 16) {
                             ForEach(viewModel.filteredRecipes) { recipe in
-                                ZStack {
-                                    RecipeCardComponent(recipe: recipe)
-                                        .cornerRadius(15)
-                                        .padding(.horizontal, 10)
-                                        .shadow(radius: 5)
-                                    FavoriteRecipeComponent(isFavorite: recipe.isFavorite)
-                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                                        .padding(.horizontal, 25)
-                                        .padding(.top, 20)
-                                        .onTapGesture {
-                                            viewModel.toggleFavorite(for: recipe)
-                                        }
+                                NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
+                                    ZStack {
+                                        RecipeCardComponent(recipe: recipe)
+                                            .cornerRadius(15)
+                                            .padding(.horizontal, 10)
+                                            .shadow(radius: 5)
+
+                                        FavoriteRecipeComponent(isFavorite: recipe.isFavorite)
+                                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                                            .padding(.horizontal, 25)
+                                            .padding(.top, 20)
+                                            .onTapGesture {
+                                                viewModel.toggleFavorite(for: recipe)
+                                            }
+                                    }
                                 }
+                                .buttonStyle(.plain) // remove highlight effect
                             }
                         }
+                        .padding(.top, 10)
                     }
-                    .padding(.top, 10)
                 }
             }
             .searchable(text: $viewModel.searchText)
-            .navigationTitle(Text("Resep"))
+            .navigationTitle(Text("Resep Masakan"))
             .onAppear {
                 viewModel.setupModelContext(modelContext)
             }
         }
+        .tint(.white)
     }
 }
+
 
 #Preview {
     let avocado = Fruit(name: "Avocado")
