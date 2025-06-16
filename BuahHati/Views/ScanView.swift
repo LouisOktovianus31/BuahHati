@@ -16,7 +16,7 @@ struct ScanView: View {
         ZStack {
             // Show camera preview only if no image is captured
             if cameraManager.capturedImage == nil {
-                CameraPreview(cameraManager: cameraManager)
+                CameraController(cameraManager: cameraManager)
                     .ignoresSafeArea()
             } else if let image = cameraManager.capturedImage {
                 // Show captured image covering the entire view
@@ -40,21 +40,7 @@ struct ScanView: View {
                 Spacer()
                 
                 // Show buttons based on state
-                if cameraManager.capturedImage == nil {
-                    // Capture button when camera is active
-                    Button(action: {
-                        cameraManager.capturePhoto()
-                    }) {
-                        Text("Capture")
-                            .font(.title3)
-                            .padding()
-                            .background(Color.green)
-                            .foregroundColor(.white)
-                            .cornerRadius(20)
-                    }
-                    .padding()
-                } else {
-                    // Reset button when image is captured
+                if cameraManager.capturedImage != nil {
                     Button(action: {
                         cameraManager.stopSession() // Clear current state
                         cameraManager.startSession() // Restart camera
@@ -72,26 +58,6 @@ struct ScanView: View {
         }
         .onAppear {
             cameraManager.checkPermissions()
-        }
-    }
-}
-
-// Camera preview representable
-struct CameraPreview: UIViewControllerRepresentable {
-    @ObservedObject var cameraManager: CameraManager
-    
-    func makeUIViewController(context: Context) -> UIViewController {
-        let controller = UIViewController()
-        if let layer = cameraManager.getPreviewLayer() {
-            layer.frame = controller.view.bounds
-            controller.view.layer.addSublayer(layer)
-        }
-        return controller
-    }
-    
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        if let layer = cameraManager.getPreviewLayer() {
-            layer.frame = uiViewController.view.bounds
         }
     }
 }
