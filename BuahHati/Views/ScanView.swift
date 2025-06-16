@@ -26,12 +26,8 @@ struct ScanView: View {
             }
             
             VStack {
-                // Classification results or viewfinder
-                if !cameraManager.classificationLabel.isEmpty && cameraManager.capturedImage != nil {
-                    ResultsView(label: cameraManager.classificationLabel)
-//                        .frame(maxHeight: .infinity, alignment: .bottom)
-//                        .padding(.bottom, -25)
-                } else if cameraManager.capturedImage == nil {
+//            viewfinder
+               if cameraManager.capturedImage == nil {
                     Spacer()
                     Image(systemName: "viewfinder")
                         .resizable()
@@ -55,16 +51,29 @@ struct ScanView: View {
                     .disabled(!cameraManager.isAvocado)
                     .padding()
                 } else {
-                    Button {
-                        cameraManager.stopSession()
-                        cameraManager.startSession()
-                    } label: {
-                        Image(systemName: "arrow.trianglehead.2.clockwise.rotate.90.circle")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .foregroundColor(.white)
+                    VStack(alignment: .trailing){
+                        Spacer()
+                        Button {
+                            cameraManager.stopSession()
+                            cameraManager.startSession()
+                        } label: {
+                            Image(systemName: "arrow.trianglehead.2.clockwise.rotate.90.circle")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .foregroundColor(.white)
+                        }
+                        .padding()
+                        .offset(y:25)
+                        HStack{
+                            if !cameraManager.classificationLabel.isEmpty && cameraManager.capturedImage != nil {
+                                ResultsView(label: cameraManager.classificationLabel)
+                                    .padding(.bottom, -25)
+                            }
+                        }.frame(width: 400)
                     }
-                    .padding()
+                    .frame(height: 300)
+                    .frame(maxHeight: .infinity, alignment: .bottom)
+//                    .background(.black.opacity(0.3))
                 }
             }
             .ignoresSafeArea()
