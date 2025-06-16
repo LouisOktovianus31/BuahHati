@@ -21,38 +21,29 @@ class RecipeController {
             return []
         }
         
-        var predicates: [Predicate<Recipe>] = []
-        
-        if let isFavorite = isFavorite {
-            let favoritePredicate = #Predicate<Recipe> { recipe in
-                recipe.isFavorite == isFavorite
-            }
-            predicates.append(favoritePredicate)
-        }
-        
-        if !searchText.isEmpty {
-            let searchPredicate = #Predicate<Recipe> { recipe in
-                recipe.name.localizedStandardContains(searchText)
-            }
-            predicates.append(searchPredicate)
-        }
-        
-        var fetchDescriptor = FetchDescriptor<Recipe>()
-        
-        if !predicates.isEmpty {
-            let combinedPredicate = predicates.reduce(predicates[0]) { result, predicate in
-                #Predicate<Recipe> { recipe in
-                    result.evaluate(recipe) && predicate.evaluate(recipe)
-                }
-            }
-            fetchDescriptor.predicate = combinedPredicate
-        }
+        // Fetch all recipes first
+        let fetchDescriptor = FetchDescriptor<Recipe>(
+            sortBy: [SortDescriptor(\.name)]
+        )
         
         do {
-            let recipes = try modelContext.fetch(fetchDescriptor)
+            var recipes = try modelContext.fetch(fetchDescriptor)
             
-            if let ripeness = ripeness {
-                return recipes.filter { recipe in
+            // Filter by favorite
+            if let isFavorite = isFavorite {
+                recipes = recipes.filter { $0.isFavorite == isFavorite }
+            }
+            
+            // Filter by search text
+            if !searchText.isEmpty {
+                recipes = recipes.filter { recipe in
+                    recipe.name.localizedCaseInsensitiveContains(searchText)
+                }
+            }
+            
+            // Filter by ripeness
+            if let ripeness = ripeness, !ripeness.isEmpty {
+                recipes = recipes.filter { recipe in
                     recipe.ripeness.contains { recipeRipeness in
                         ripeness.contains(recipeRipeness)
                     }
@@ -65,4 +56,20 @@ class RecipeController {
             return []
         }
     }
+    
+    func toggleFavorite(for recipe: Recipe) {
+            guard let modelContext = modelContext else {
+                print("Model Context not set: Toggle Favorite")
+                return
+            }
+            
+            recipe.isFavorite.toggle()
+            
+            do {
+                try modelContext.save()
+            } catch {
+                print("Failed to save favorite status: \(error)")
+                recipe.isFavorite.toggle()
+            }
+        }
 }
