@@ -201,6 +201,7 @@ struct BuahHatiApp: App {
             print("Seed data successfully inserted")
         } catch {
             print("Error saving seed data: \(error)")
+
         }
     }
 }
