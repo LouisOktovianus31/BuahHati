@@ -10,51 +10,64 @@ import AVFoundation
 
 struct ScanView: View {
     @StateObject private var cameraManager = CameraManager()
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         ZStack {
-            // Show camera preview only if no image is captured
-            if cameraManager.capturedImage == nil {
-                CameraController(cameraManager: cameraManager)
-                    .ignoresSafeArea()
-            } else if let image = cameraManager.capturedImage {
-                // Show captured image covering the entire view
-                Image(uiImage: image)
+            // Camera preview or captured image
+            if let capturedImage = cameraManager.capturedImage {
+                Image(uiImage: capturedImage)
                     .resizable()
                     .scaledToFill()
+                    .ignoresSafeArea()
+            } else {
+                CameraController(cameraManager: cameraManager)
                     .ignoresSafeArea()
             }
             
             VStack {
-                // Display classification results if available
+                // Classification results or viewfinder
                 if !cameraManager.classificationLabel.isEmpty && cameraManager.capturedImage != nil {
-                    Text("Result: \(cameraManager.classificationLabel) (\(String(format: "%.2f", cameraManager.classificationConfidence * 100))%)")
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.black.opacity(0.7))
-                        .cornerRadius(10)
-                        .padding()
+                    ResultsView(label: cameraManager.classificationLabel)
+//                        .frame(maxHeight: .infinity, alignment: .bottom)
+//                        .padding(.bottom, -25)
+                } else if cameraManager.capturedImage == nil {
+                    Spacer()
+                    Image(systemName: "viewfinder")
+                        .resizable()
+                        .frame(width: 250, height: 250)
+                        .foregroundColor(cameraManager.isAvocado ? Color("PrimaryColor") : .white)
                 }
                 
                 Spacer()
                 
-                // Show buttons based on state
-                if cameraManager.capturedImage != nil {
-                    Button(action: {
-                        cameraManager.stopSession() // Clear current state
-                        cameraManager.startSession() // Restart camera
-                    }) {
-                        Text("Reset")
-                            .font(.title3)
+                // Action buttons
+                if cameraManager.capturedImage == nil {
+                    Button {
+                        cameraManager.capturePhoto()
+                    } label: {
+                        Image(systemName: "button.programmable")
+                            .resizable()
+                            .frame(width: 75, height: 75)
                             .padding()
-                            .background(Color.blue)
+                            .foregroundColor(cameraManager.isAvocado ? .white : Color("InactiveColor"))
+                    }
+                    .disabled(!cameraManager.isAvocado)
+                    .padding()
+                } else {
+                    Button {
+                        cameraManager.stopSession()
+                        cameraManager.startSession()
+                    } label: {
+                        Image(systemName: "arrow.trianglehead.2.clockwise.rotate.90.circle")
+                            .resizable()
+                            .frame(width: 30, height: 30)
                             .foregroundColor(.white)
-                            .cornerRadius(20)
                     }
                     .padding()
                 }
             }
+            .ignoresSafeArea()
         }
         .onAppear {
             cameraManager.checkPermissions()

@@ -12,6 +12,7 @@ struct BuahHatiApp: App {
     var body: some Scene {
         WindowGroup {
             ScanView()
+//            testView()
         }
     }
 }
