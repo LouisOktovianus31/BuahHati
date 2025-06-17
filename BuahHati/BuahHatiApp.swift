@@ -26,7 +26,9 @@ struct BuahHatiApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(.light)
                 .onAppear(perform: seedDataIfNeeded)
+//            ScanView()
         }
         .modelContainer(modelContainer)
     }
@@ -48,10 +50,10 @@ struct BuahHatiApp: App {
         // Create base entities
         let avocado = Fruit(name: "Avocado")
         
-        let calories = Nutrient(name: "Kalori")
+        let calories = Nutrient(name: "Calories")
         let protein = Nutrient(name: "Protein")
-        let fat = Nutrient(name: "Lemak")
-        let carbs = Nutrient(name: "Karbohidrat")
+        let fat = Nutrient(name: "Fat")
+        let carbs = Nutrient(name: "Carbohydrates")
         
         // Insert base entities
         context.insert(avocado)
@@ -65,16 +67,16 @@ struct BuahHatiApp: App {
             Recipe(
                 name: "Avocado Fries",
                 ripeness: [.unripe, .breaking, .ripeFirstPhase],
-                details: "Campurkan tepung roti, ketumbar, jintan, dan garam dalam mangkuk|Siapkan telur kocok pada mangkuk lain|Siapkan tepung terigu pada mangkuk lain|Potong alpukat secara memanjang|Celupkan setiap iris alpukat ke tepung, lalu telur, kemudian campuran tepung roti|Masak alpukat pada air fryer selama 15 menit pada suhu 200°C|Sajikan avocado fries dengan saus pilihan anda, sebaiknya dimakan ketika hangat",
-                ingredients: "200g Tepung Roti|1 sdt Ketumbar|1 sdt Jintan|100g Tepung Terigu|2 Butir Telur|2 Buah Alpukat",
-                tools: "Mangkuk|Air Fryer",
+                details: "Mix breadcrumbs, coriander, cumin, and salt in a bowl|Prepare beaten eggs in another bowl|Prepare flour in another bowl|Cut avocado lengthwise|Dip each avocado slice in flour, then egg, then breadcrumb mixture|Cook avocado in air fryer for 15 minutes at 200°C|Serve avocado fries with your choice of sauce, best eaten while warm",
+                ingredients: "200g Breadcrumbs|1 tsp Coriander|1 tsp Cumin|100g All-Purpose Flour|2 Eggs|2 Avocados",
+                tools: "Bowl|Air Fryer",
                 difficulty: 3,
                 time: 30,
                 portion: 4,
                 fruit: avocado,
                 image: "AvocadoFries",
                 nutrients: [
-                    NutrientDetail(nutrient: calories, value: 490, uom: "kal"),
+                    NutrientDetail(nutrient: calories, value: 490, uom: "cal"),
                     NutrientDetail(nutrient: protein, value: 14, uom: "g"),
                     NutrientDetail(nutrient: fat, value: 24, uom: "g"),
                     NutrientDetail(nutrient: carbs, value: 58, uom: "g")
@@ -83,16 +85,16 @@ struct BuahHatiApp: App {
             Recipe(
                 name: "Avocado Pickles",
                 ripeness: [.unripe, .breaking],
-                details: "Campurkan cuka, air, gula, dan garam ke dalam panci|Didihkan sambil diaduk hingga gula dan garam larut|Angkat cairan cuka dan diamkan hingga mencapai suhu ruang|Potong alpukat secara memanjang|Masukkan bawang putih, potongan cabai, alpukat, dan campuran larutan asam ke dalam wadah tertutup|Pastikan alpukat terendam larutan asam|Diamkan di kulkas minimal 2 jam sebelum dikonsumsi|Avocado Pickle dapat bertahan hingga satu minggu di dalam kulkas",
-                ingredients: "240ml Cuka Putih|240ml Air|50g Gula Pasir|Bawang Putih Iris|Cabai Iris|2 Buah Alpukat",
-                tools: "Panci|Wadah Tertutup",
+                details: "Mix vinegar, water, sugar, and salt in a saucepan|Bring to boil while stirring until sugar and salt dissolve|Remove vinegar solution and let cool to room temperature|Cut avocado lengthwise|Put garlic, sliced chili, avocado, and acidic solution mixture into a sealed container|Make sure avocado is submerged in the acidic solution|Let sit in refrigerator for at least 2 hours before consuming|Avocado Pickle can last up to one week in the refrigerator",
+                ingredients: "240ml White Vinegar|240ml Water|50g Sugar|Sliced Garlic|Sliced Chili|2 Avocados",
+                tools: "Saucepan|Sealed Container",
                 difficulty: 1,
                 time: 15,
                 portion: 4,
                 fruit: avocado,
                 image: "AvocadoPickle",
                 nutrients: [
-                    NutrientDetail(nutrient: calories, value: 115, uom: "kal"),
+                    NutrientDetail(nutrient: calories, value: 115, uom: "cal"),
                     NutrientDetail(nutrient: protein, value: 1, uom: "g"),
                     NutrientDetail(nutrient: fat, value: 15, uom: "g"),
                     NutrientDetail(nutrient: carbs, value: 11, uom: "g")
@@ -101,16 +103,16 @@ struct BuahHatiApp: App {
             Recipe(
                 name: "Avocado Chicken Stir-Fry",
                 ripeness: [.unripe, .breaking],
-                details: "Campurkan kaldu ayam, kecap asin, tepung maizena, dan bawang putih cincang dalam mangkuk hingga semua bahan tercampur rata|Panaskan minyak dalam wok dengan api sedang-tinggi|Tumis ayam hingga setengah matang atau selama lima menit|Pindahkan ayam ke piring|Masukkan kapri ke dalam wok dan tumis hingga mendekati layu|Tambahkan jamur dan daun bawang, masak hingga jamur empuk|Masukkan kembali ayam ke dalam wok dan turunkan api menjadi api kecil-sedang|Aduk larutan kaldu dan tuang ke dalam wok|Masukkan alpukat dan masak hingga saus mengental sekitar 3 menit|Avocado Chicken Stir-Fry siap untuk disajikan",
-                ingredients: "120ml Kaldu Ayam|60ml Kecap Asin|1 Bawang Putih|Cabai Iris|Daun Bawang| 2 Buah Alpukat",
-                tools: "Wok|Mangkuk",
+                details: "Mix chicken broth, soy sauce, cornstarch, and minced garlic in a bowl until all ingredients are well combined|Heat oil in wok over medium-high heat|Stir-fry chicken until half cooked or for five minutes|Transfer chicken to a plate|Add snow peas to wok and stir-fry until nearly wilted|Add mushrooms and green onions, cook until mushrooms are tender|Return chicken to wok and reduce heat to low-medium|Stir broth mixture and pour into wok|Add avocado and cook until sauce thickens, about 3 minutes|Avocado Chicken Stir-Fry is ready to serve",
+                ingredients: "120ml Chicken Broth|60ml Soy Sauce|1 Garlic Clove|Sliced Chili|Green Onions|2 Avocados",
+                tools: "Wok|Bowl",
                 difficulty: 3,
                 time: 45,
                 portion: 5,
                 fruit: avocado,
                 image: "AvocadoStirFry",
                 nutrients: [
-                    NutrientDetail(nutrient: calories, value: 508, uom: "kal"),
+                    NutrientDetail(nutrient: calories, value: 508, uom: "cal"),
                     NutrientDetail(nutrient: protein, value: 54, uom: "g"),
                     NutrientDetail(nutrient: fat, value: 24, uom: "g"),
                     NutrientDetail(nutrient: carbs, value: 40, uom: "g")
@@ -119,26 +121,26 @@ struct BuahHatiApp: App {
             Recipe(
                 name: "Avocado Toast",
                 ripeness: [.ripeFirstPhase, .ripeSecondPhase, .overripe],
-                details: "Buka alpukat dan buang bijinya|Panggang roti hingga kecoklatan|Iris alpukat secara memanjang|Taruh potongan alpukat diatas roti|Taburkan garam laut dan beri perasan lemon pada alpukat|Hancurkan alpukat dengan menggunakan garpu diatas roti|Avocado Toast siap untuk disantap",
-                ingredients: "1 Buah Alpukat|2 Lembar Roti|Lemon|Garam Dapur",
-                tools: "Pan/Toaster|Garpu|Pisau",
+                details: "Open avocado and remove the pit|Toast bread until golden brown|Slice avocado lengthwise|Place avocado slices on top of bread|Sprinkle sea salt and squeeze lemon over avocado|Mash avocado with fork on top of bread|Avocado Toast is ready to enjoy",
+                ingredients: "1 Avocado|2 Slices of Bread|Lemon|Salt",
+                tools: "Pan/Toaster|Fork|Knife",
                 difficulty: 1,
                 time: 10,
                 portion: 2,
                 fruit: avocado,
                 image: "AvocadoToast",
                 nutrients: [
-                    NutrientDetail(nutrient: calories, value: 240, uom: "kal"),
+                    NutrientDetail(nutrient: calories, value: 240, uom: "cal"),
                     NutrientDetail(nutrient: protein, value: 5, uom: "g"),
                     NutrientDetail(nutrient: fat, value: 16, uom: "g"),
                     NutrientDetail(nutrient: carbs, value: 23, uom: "g")
                 ]
             ),
             Recipe(
-                name: "Avocado Smoothies",
+                name: "Avocado Smoothie",
                 ripeness: [.ripeFirstPhase, .ripeSecondPhase, .overripe],
-                details: "Masukkan semua bahan ke dalam blender|Blend semua bahan hingga tercampur rata|Tuangkan smoothies ke dalam gelas|Avocado Smoothies siap untuk disajikan",
-                ingredients: "1 Buah Alpukat|120g Pisang Beku|45ml Air Jeruk Nipis|Garam Laut|120g Nanas Beku (Optional)|60g Bayam (Opsional)",
+                details: "Put all ingredients into blender|Blend all ingredients until well mixed|Pour smoothie into glass|Avocado Smoothie is ready to serve",
+                ingredients: "1 Avocado|120g Frozen Banana|45ml Lime Juice|Sea Salt|120g Frozen Pineapple (Optional)|60g Spinach (Optional)",
                 tools: "Blender",
                 difficulty: 1,
                 time: 5,
@@ -146,7 +148,7 @@ struct BuahHatiApp: App {
                 fruit: avocado,
                 image: "AvocadoSmoothies",
                 nutrients: [
-                    NutrientDetail(nutrient: calories, value: 404, uom: "kal"),
+                    NutrientDetail(nutrient: calories, value: 404, uom: "cal"),
                     NutrientDetail(nutrient: protein, value: 6, uom: "g"),
                     NutrientDetail(nutrient: fat, value: 30, uom: "g"),
                     NutrientDetail(nutrient: carbs, value: 37, uom: "g")
@@ -155,16 +157,16 @@ struct BuahHatiApp: App {
             Recipe(
                 name: "Avocado Brownies",
                 ripeness: [.overripe],
-                details: "Panaskan oven ke suhu 163°C dan semprot loyang 20x20cm dengan cooking spray|Campurkan alpukat tumbuk, selai kacang, bubuk kakao, madu, vanilla, dan garam ke dalam mangkuk|Aduk hingga rata tanpa gumpalan|Masukkan chocolate chips dan aduk perlahan agar tidak hancur|Tuang adonan ke loyang dan ratakan dengan sendok kayu|Taburi sedikit chocolate chips di atas jika ada sisa|Panggang selama 40 menit|Dinginkan sepenuhnya sebelum dipotong dan disajikan",
-                ingredients: "240g Alpukat|125g Selai Kacang|60g Bubuk Kakao|85g Madu|5ml Vanilla|2g Garam Laut|90g Dark Chocolate Chips",
-                tools: "Oven|Mangkuk Sedang|Sendok Kayu|Spatula|Loyang 20x20cm|Garpu",
+                details: "Preheat oven to 163°C and spray 20x20cm baking pan with cooking spray|Mix mashed avocado, peanut butter, cocoa powder, honey, vanilla, and salt in a bowl|Stir until smooth without lumps|Add chocolate chips and stir gently so they don't break|Pour batter into pan and smooth with wooden spoon|Sprinkle a few chocolate chips on top if there are leftovers|Bake for 40 minutes|Cool completely before cutting and serving",
+                ingredients: "240g Avocado|125g Peanut Butter|60g Cocoa Powder|85g Honey|5ml Vanilla|2g Sea Salt|90g Dark Chocolate Chips",
+                tools: "Oven|Medium Bowl|Wooden Spoon|Spatula|20x20cm Baking Pan|Fork",
                 difficulty: 3,
                 time: 50,
                 portion: 9,
                 fruit: avocado,
                 image: "AvocadoBrownies",
                 nutrients: [
-                    NutrientDetail(nutrient: calories, value: 126, uom: "kal"),
+                    NutrientDetail(nutrient: calories, value: 126, uom: "cal"),
                     NutrientDetail(nutrient: protein, value: 4, uom: "g"),
                     NutrientDetail(nutrient: fat, value: 9, uom: "g"),
                     NutrientDetail(nutrient: carbs, value: 13, uom: "g")
@@ -173,16 +175,16 @@ struct BuahHatiApp: App {
             Recipe(
                 name: "Avocado Muffins",
                 ripeness: [.overripe],
-                details: "Panaskan oven 163°C dan olesi loyang muffin dengan sedikit mentega|Tumbuk daging alpukat hingga halus atau sesuai preferensi|Dalam mangkuk besar, kocok mentega dan gula pasir hingga tercampur rata|Tambahkan telur, vanilla, alpukat tumbuk, dan air jeruk nipis, aduk rata|Dalam mangkuk terpisah, campur tepung, baking powder, baking soda, kayu manis, dan garam dengan garpu|Campur (Fold) bahan kering ke dalam bahan basah hingga tercampur, jangan overmix|Sendokkan adonan ke loyang muffin, isi sekitar 3/4 penuh|Taburi permukaan muffin dengan gula sebelum dipanggang|Panggang 18-20 menit atau hingga tusuk gigi keluar bersih|Dinginkan minimal 5 menit sebelum dikeluarkan dari loyang",
-                ingredients: "70g Mentega|100g Gula Pasir|1 Telur Besar|5ml Vanilla|120g Alpukat|10ml Air Jeruk Nipis|125g Tepung Terigu|2.5g Baking Powder|2.5g Baking Soda|2.5g Bubuk Kayu Manis|1.5g Garam|12g Gula",
-                tools: "Oven|Loyang Muffin|Mangkuk Kecil|Mangkuk Besar|Mangkuk Sedang|Garpu|Mixer atau Sendok Kayu|Tusuk Gigi",
+                details: "Preheat oven to 163°C and grease muffin tin with a little butter|Mash avocado flesh until smooth or to your preference|In large bowl, beat butter and sugar until well combined|Add egg, vanilla, mashed avocado, and lime juice, mix well|In separate bowl, combine flour, baking powder, baking soda, cinnamon, and salt with fork|Fold dry ingredients into wet ingredients until just combined, don't overmix|Spoon batter into muffin tin, fill about 3/4 full|Sprinkle muffin tops with sugar before baking|Bake 18-20 minutes or until toothpick comes out clean|Cool at least 5 minutes before removing from tin",
+                ingredients: "70g Butter|100g Sugar|1 Large Egg|5ml Vanilla|120g Avocado|10ml Lime Juice|125g All-Purpose Flour|2.5g Baking Powder|2.5g Baking Soda|2.5g Cinnamon Powder|1.5g Salt|12g Sugar",
+                tools: "Oven|Muffin Tin|Small Bowl|Large Bowl|Medium Bowl|Fork|Mixer or Wooden Spoon|Toothpick",
                 difficulty: 3,
                 time: 40,
                 portion: 5,
                 fruit: avocado,
                 image: "AvocadoMuffin",
                 nutrients: [
-                    NutrientDetail(nutrient: calories, value: 140, uom: "kal"),
+                    NutrientDetail(nutrient: calories, value: 140, uom: "cal"),
                     NutrientDetail(nutrient: protein, value: 2, uom: "g"),
                     NutrientDetail(nutrient: fat, value: 7, uom: "g"),
                     NutrientDetail(nutrient: carbs, value: 19, uom: "g")
@@ -201,7 +203,6 @@ struct BuahHatiApp: App {
             print("Seed data successfully inserted")
         } catch {
             print("Error saving seed data: \(error)")
-
         }
     }
 }

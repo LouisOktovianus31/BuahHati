@@ -15,19 +15,19 @@ struct RecipeListView: View {
                     // MARK: Filter Horizontal
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
-                            QuickFilterComponent(symbol: "heart.fill", title: "Favorit", isSelected: $viewModel.selectQuickFilterFavorite)
+                            QuickFilterComponent(symbol: "heart.fill", title: "Favorite", isSelected: $viewModel.selectQuickFilterFavorite)
                                 .onTapGesture {
                                     viewModel.toggleQuickFilterFavorite()
                                 }
-                            QuickFilterComponent(title: "Belum Matang", isSelected: $viewModel.selectQuickFilterUnripe)
+                            QuickFilterComponent(title: "Unripe", isSelected: $viewModel.selectQuickFilterUnripe)
                                 .onTapGesture {
                                     viewModel.toggleQuickFilterUnripe()
                                 }
-                            QuickFilterComponent(title: "Matang", isSelected: $viewModel.selectQuickFilterRipe)
+                            QuickFilterComponent(title: "Ripe", isSelected: $viewModel.selectQuickFilterRipe)
                                 .onTapGesture {
                                     viewModel.toggleQuickFilterRipe()
                                 }
-                            QuickFilterComponent(title: "Terlalu Matang", isSelected: $viewModel.selectQuickFilterOverripe)
+                            QuickFilterComponent(title: "Overripe", isSelected: $viewModel.selectQuickFilterOverripe)
                                 .onTapGesture {
                                     viewModel.toggleQuickFilterOverripe()
                                 }
@@ -63,7 +63,7 @@ struct RecipeListView: View {
                 }
             }
             .searchable(text: $viewModel.searchText)
-            .navigationTitle(Text("Resep Masakan"))
+            .navigationTitle(Text("Recipes"))
             .onAppear {
                 viewModel.setupModelContext(modelContext)
             }

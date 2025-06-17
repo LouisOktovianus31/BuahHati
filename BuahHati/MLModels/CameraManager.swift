@@ -13,6 +13,19 @@ class CameraManager: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleB
     @Published var classificationLabel: String = ""
     @Published var classificationConfidence: Double = 0.0
     @Published var capturedImage: UIImage?
+    
+    var ripeness: Ripeness {
+        return switch(classificationLabel) {
+            case "Belum":
+                .unripe
+            case "Sudah":
+                .ripeFirstPhase
+            case "Terlalu" :
+                .overripe
+            default:
+                .unripe
+        }
+    }
     private let session = AVCaptureSession()
     private let videoOutput = AVCaptureVideoDataOutput()
     private var previewLayer: AVCaptureVideoPreviewLayer?
@@ -31,11 +44,14 @@ class CameraManager: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleB
     }
     
     func checkPermissions() {
+        print("Start Checking Permission")
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
+            print("Authorized")
             isAuthorized = true
             startSession()
         case .notDetermined:
+            print("Not Determined")
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 DispatchQueue.main.async {
                     self.isAuthorized = granted
@@ -46,9 +62,11 @@ class CameraManager: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleB
                 }
             }
         case .denied, .restricted:
+            print("Denied")
             isAuthorized = false
             permissionMessage = "Camera access denied. Please enable in Settings."
         @unknown default:
+            print("Unknown")
             isAuthorized = false
             permissionMessage = "Unknown permission status."
         }

@@ -11,7 +11,7 @@ struct StepSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 24) {
-                Text("Langkah-langkah")
+                Text("Instructions")
                     .font(.title3)
                     .bold()
 
@@ -44,12 +44,12 @@ struct StepSection: View {
                         }
 
                         VStack(alignment: .center, spacing: 12) {
-                            Text("🎉 Selamat kamu sudah menyelesaikan resep ini!")
+                            Text("🎉 Congratulations! You've completed this recipe!")
                                 .font(.headline)
                                 .multilineTextAlignment(.center)
                                 .foregroundColor(.primary)
 
-                            Text("Selamat menikmati alpukatmu bersama Sang Buah Hati")
+                            Text("Enjoy your avocado with your loved ones")
                                 .font(.subheadline)
                                 .multilineTextAlignment(.center)
                                 .foregroundColor(.gray)

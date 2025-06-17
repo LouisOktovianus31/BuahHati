@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ScanGuideView: View {
+    @Binding var navigationPath: NavigationPath
+    
     var body: some View {
         ZStack {
             // Background Image
@@ -46,9 +48,7 @@ struct ScanGuideView: View {
                 .padding(.top, 15)
                 .padding(.horizontal, 25)
                 
-                Button {
-                    print("Navigate to Camera")
-                } label: {
+                NavigationLink(destination: ScanView()) {
                     Text("Continue")
                         .padding()
                         .font(.title2)
@@ -61,12 +61,13 @@ struct ScanGuideView: View {
                 }
                 .padding(.horizontal, 25)
                 .padding(.vertical, 20)
-
             }
         }
+        .navigationBarHidden(true)
     }
 }
 
 #Preview {
-    ScanGuideView()
+    @Previewable @State var path = NavigationPath()
+    ScanGuideView(navigationPath: $path)
 }
