@@ -48,11 +48,12 @@ public struct HomeView: View {
                         // NAVIGATE TO OTHER VIEW
                         print("Kepencet")
                     }) {
-                        Color(.clear)
+                        Circle()
+                            .fill(Color.clear)
                             .frame(width: 250, height: 250)
+                            .cornerRadius(0)
                     }
-                    // .border(Color.white, width: 4)
-                    .padding(.top, 100)
+                    .offset(y: 50)
                 }
             }
         }
