@@ -1,20 +1,19 @@
 import SwiftUI
 
-struct ResultView: View {
-    let ripenessTarget: Ripeness
+struct ResultViewOverripe: View {
     let recipes: [Recipe]
-
+    
     @State private var isShowingRecipeList = false
-
+    
     var filteredRecipes: [Recipe] {
-        recipes.filter { $0.ripeness.contains(ripenessTarget) }
+        recipes.filter { $0.ripeness.contains(.overripe) }
     }
-
+    
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottom) {
                 Color("BackgroundColor").ignoresSafeArea()
-
+                
                 VStack(spacing: 0) {
                     // MARK: Hijau Atas dengan Wave
                     ZStack {
@@ -22,7 +21,7 @@ struct ResultView: View {
                             .fill(Color("PrimaryColor"))
                             .frame(height: 380)
                             .ignoresSafeArea(edges: .top)
-
+                        
                         VStack(spacing: 12) {
                             HStack {
                                 Button(action: {
@@ -36,46 +35,46 @@ struct ResultView: View {
                                 Spacer()
                             }
                             .padding(.top, -20)
-
+                            
                             Image("Avocado")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 110, height: 110)
-
-                            Text("Sudah Matang")
+                            
+                            Text("Terlalu Matang")
                                 .font(.system(size: 28, weight: .bold))
                                 .foregroundColor(.white)
-
-                            Text("Estimasi busuk dalam 3 hari")
+                            
+                            Text("Segera gunakan dalam 1 hari")
                                 .font(.subheadline)
                                 .foregroundColor(.white)
                         }
                     }
-
+                    
                     Spacer()
-
+                    
                     // MARK: Section Putih
                     VStack(spacing: 20) {
-                        Text("Yey! Alpukat kamu pas banget nih. Cocok buat langsung dimakan atau diolah~")
+                        Text("Alpukat kamu sudah sangat matang nih. Segera diolah jadi dessert atau camilan, yuk~")
                             .font(.body)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal)
                             .fixedSize(horizontal: false, vertical: true)
-
+                        
                         Button(action: {}) {
                             Text("Cara menyimpan alpukat saya")
                                 .underline()
                                 .foregroundColor(Color("BrownColor"))
                         }
-
+                        
                         VStack(alignment: .leading, spacing: 12) {
                             HStack {
                                 Text("Resep")
                                     .font(.title3)
                                     .bold()
-
+                                
                                 Spacer()
-
+                                
                                 Button(action: {
                                     isShowingRecipeList = true
                                 }) {
@@ -95,12 +94,12 @@ struct ResultView: View {
                                 )
                             }
                             .padding(.horizontal)
-
-                            Text("sesuai kematangan alpukatmu")
+                            
+                            Text("yang cocok untuk alpukat sangat matangmu")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                                 .padding(.horizontal)
-
+                            
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 16) {
                                     ForEach(filteredRecipes.prefix(3), id: \.id) { recipe in
@@ -112,13 +111,13 @@ struct ResultView: View {
                                                     .frame(width: 130, height: 90)
                                                     .clipped()
                                                     .cornerRadius(12)
-
+                                                
                                                 Text(recipe.name)
                                                     .font(.headline)
                                                     .lineLimit(2)
                                                     .multilineTextAlignment(.leading)
                                                     .frame(height: 40, alignment: .topLeading)
-
+                                                
                                                 HStack(spacing: 4) {
                                                     Image(systemName: "clock")
                                                     Text("\(recipe.time) menit")
@@ -139,7 +138,7 @@ struct ResultView: View {
                                 .padding(.trailing, 40)
                             }
                         }
-
+                        
                         Spacer()
                             .padding(.bottom, 110)
                     }
@@ -149,9 +148,9 @@ struct ResultView: View {
                             .clipShape(RoundedCorner(radius: 40, corners: [.topLeft, .topRight]))
                     )
                 }
-
+                
                 Spacer()
-
+                
                 HStack {
                     Spacer()
                     Image(systemName: "house.fill")
@@ -178,69 +177,48 @@ struct ResultView: View {
     }
 }
 
-
+// MARK: - Preview
 #Preview {
     let sampleFruit = Fruit(name: "Avocado")
 
-    let sampleRecipeList: [Recipe] = [
+    let sampleRecipes: [Recipe] = [
         Recipe(
-            name: "Guaga Mole",
-            ripeness: [.ripeFirstPhase],
+            name: "Avocado Brownies",
+            ripeness: [.overripe],
             details: "Step 1|Step 2|Step 3",
-            ingredients: "Alpukat|Tomat|Bawang|Jeruk Nipis",
-            tools: "Mangkok|Garpu",
-            difficulty: 1,
-            time: 30,
-            portion: 2,
+            ingredients: "Alpukat|Coklat|Tepung",
+            tools: "Oven|Mangkuk",
+            difficulty: 2,
+            time: 40,
+            portion: 6,
             fruit: sampleFruit,
-            image: "HomescreenLogo",
+            image: "AvocadoBrownies",
             nutrients: [
-                NutrientDetail(nutrient: Nutrient(name: "Kalori"), value: 120, uom: "kal"),
-                NutrientDetail(nutrient: Nutrient(name: "Protein"), value: 4, uom: "g"),
-                NutrientDetail(nutrient: Nutrient(name: "Lemak"), value: 8, uom: "g"),
-                NutrientDetail(nutrient: Nutrient(name: "Karbo"), value: 10, uom: "g")
+                NutrientDetail(nutrient: Nutrient(name: "Kalori"), value: 250, uom: "kal"),
+                NutrientDetail(nutrient: Nutrient(name: "Lemak"), value: 14, uom: "g"),
+                NutrientDetail(nutrient: Nutrient(name: "Protein"), value: 3, uom: "g"),
+                NutrientDetail(nutrient: Nutrient(name: "Karbo"), value: 28, uom: "g")
             ]
         ),
         Recipe(
-            name: "Banana Pancakes",
-            ripeness: [.ripeFirstPhase],
+            name: "Avocado Muffins",
+            ripeness: [.overripe],
             details: "Step 1|Step 2|Step 3",
-            ingredients: "Alpukat|Tomat|Bawang|Jeruk Nipis",
-            tools: "Mangkok|Garpu",
-            difficulty: 1,
-            time: 30,
-            portion: 2,
+            ingredients: "Alpukat|Tepung|Telur",
+            tools: "Loyang Muffin|Spatula",
+            difficulty: 2,
+            time: 35,
+            portion: 4,
             fruit: sampleFruit,
-            image: "HomescreenLogo",
+            image: "AvocadoMuffin",
             nutrients: [
-                NutrientDetail(nutrient: Nutrient(name: "Kalori"), value: 120, uom: "kal"),
+                NutrientDetail(nutrient: Nutrient(name: "Kalori"), value: 180, uom: "kal"),
+                NutrientDetail(nutrient: Nutrient(name: "Lemak"), value: 9, uom: "g"),
                 NutrientDetail(nutrient: Nutrient(name: "Protein"), value: 4, uom: "g"),
-                NutrientDetail(nutrient: Nutrient(name: "Lemak"), value: 8, uom: "g"),
-                NutrientDetail(nutrient: Nutrient(name: "Karbo"), value: 10, uom: "g")
-            ]
-        ),
-        Recipe(
-            name: "Nasi Goreng Avocado",
-            ripeness: [.ripeFirstPhase],
-            details: "Step 1|Step 2|Step 3",
-            ingredients: "Alpukat|Tomat|Bawang|Jeruk Nipis",
-            tools: "Mangkok|Garpu",
-            difficulty: 1,
-            time: 30,
-            portion: 2,
-            fruit: sampleFruit,
-            image: "HomescreenLogo",
-            nutrients: [
-                NutrientDetail(nutrient: Nutrient(name: "Kalori"), value: 120, uom: "kal"),
-                NutrientDetail(nutrient: Nutrient(name: "Protein"), value: 4, uom: "g"),
-                NutrientDetail(nutrient: Nutrient(name: "Lemak"), value: 8, uom: "g"),
-                NutrientDetail(nutrient: Nutrient(name: "Karbo"), value: 10, uom: "g")
+                NutrientDetail(nutrient: Nutrient(name: "Karbo"), value: 20, uom: "g")
             ]
         )
     ]
     
-    ResultView(
-        ripenessTarget: .ripeFirstPhase,
-        recipes: sampleRecipeList
-    )
+    return ResultViewOverripe(recipes: sampleRecipes)
 }

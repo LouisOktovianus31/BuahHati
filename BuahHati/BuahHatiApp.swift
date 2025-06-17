@@ -205,3 +205,13 @@ struct BuahHatiApp: App {
         }
     }
 }
+
+// MARK: - Loader untuk ambil data dari SwiftData dan tampilkan ResultView
+struct ContentViewLoader: View {
+    @Query var recipes: [Recipe]
+
+    var body: some View {
+        // Ubah target kematangan di sini kalau mau (misal .overripe, .breaking, dll)
+        ResultView(ripenessTarget: .ripeFirstPhase, recipes: recipes)
+    }
+}
