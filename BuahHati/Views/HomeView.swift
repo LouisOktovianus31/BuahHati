@@ -26,12 +26,12 @@ public struct HomeView: View {
                 VStack(spacing: 20) {
                     // Text Section
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("Halo, ma!")
+                        Text("Hi, mom!")
                             .font(.largeTitle)
                             .fontWeight(.bold)
                             .foregroundColor(.primary)
                         
-                        Text("Siap cek alpukatmu?")
+                        Text("Ready to check your avocado?")
                             .font(.title2)
                             .foregroundColor(.primary)
                     }
@@ -43,7 +43,6 @@ public struct HomeView: View {
                         Image("Button Avocado")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(height: 600)
                         
                         // Button Section - Large and Clipped
                         Button(action: {

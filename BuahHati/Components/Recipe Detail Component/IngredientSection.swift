@@ -9,7 +9,7 @@ struct IngredientSection: View {
             VStack(spacing: 0) {
                 // HEADER
                 HStack {
-                    Text("Bahan-bahan")
+                    Text("Ingredients")
                         .font(.headline)
                         .bold()
                     Spacer()
