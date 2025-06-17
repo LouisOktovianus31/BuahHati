@@ -66,8 +66,10 @@ struct ScanView: View {
                         .offset(y:25)
                         HStack{
                             if !cameraManager.classificationLabel.isEmpty && cameraManager.capturedImage != nil {
-                                ResultsView(label: cameraManager.classificationLabel)
-                                    .padding(.bottom, -25)
+                                NavigationLink(destination: ScanResultView(viewModel:  ScanResultViewModel(ripeness: cameraManager.ripeness))) {
+                                            ResultsView(label: cameraManager.classificationLabel)
+                                                .padding(.bottom, -25)
+                                }
                             }
                         }.frame(width: 400)
                     }
@@ -77,8 +79,10 @@ struct ScanView: View {
                 }
             }
             .ignoresSafeArea()
+            .toolbar(.hidden, for: .tabBar)
         }
         .onAppear {
+            print("On Appear ScanView")
             cameraManager.checkPermissions()
         }
     }

@@ -48,9 +48,7 @@ struct ScanGuideView: View {
                 .padding(.top, 15)
                 .padding(.horizontal, 25)
                 
-                Button {
-                    navigationPath.append("Camera")
-                } label: {
+                NavigationLink(destination: ScanView()) {
                     Text("Continue")
                         .padding()
                         .font(.title2)
@@ -63,15 +61,9 @@ struct ScanGuideView: View {
                 }
                 .padding(.horizontal, 25)
                 .padding(.vertical, 20)
-                
             }
         }
         .navigationBarHidden(true)
-        .navigationDestination(for: String.self) { destination in
-            if destination == "Camera" {
-                ScanView()
-            }
-        }
     }
 }
 
