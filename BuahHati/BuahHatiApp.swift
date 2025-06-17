@@ -25,7 +25,7 @@ struct BuahHatiApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashScreenView()
                 .preferredColorScheme(.light)
                 .onAppear(perform: seedDataIfNeeded)
 //            ScanView()
