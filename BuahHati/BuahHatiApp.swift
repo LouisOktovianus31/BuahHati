@@ -27,6 +27,7 @@ struct BuahHatiApp: App {
         WindowGroup {
             ContentView()
                 .onAppear(perform: seedDataIfNeeded)
+//            ScanView()
         }
         .modelContainer(modelContainer)
     }

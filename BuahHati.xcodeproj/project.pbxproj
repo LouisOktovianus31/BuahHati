@@ -11,9 +11,22 @@
 		BA31A0EC2DF666FD005DB81C /* BuahHati.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuahHati.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		70C373832E0114FE00684C2F /* Exceptions for "BuahHati" folder in "BuahHati" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = BA31A0EB2DF666FD005DB81C /* BuahHati */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		BA31A0EE2DF666FD005DB81C /* BuahHati */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				70C373832E0114FE00684C2F /* Exceptions for "BuahHati" folder in "BuahHati" target */,
+			);
 			path = BuahHati;
 			sourceTree = "<group>";
 		};
@@ -262,10 +275,11 @@
 				CODE_SIGN_ENTITLEMENTS = BuahHati/BuahHati.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8K59B5RZ46;
+				DEVELOPMENT_TEAM = F64CG297K7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Please Allow the use of camera to access the app features";
+				INFOPLIST_FILE = BuahHati/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow the usage of camera to use the app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -292,10 +306,11 @@
 				CODE_SIGN_ENTITLEMENTS = BuahHati/BuahHati.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8K59B5RZ46;
+				DEVELOPMENT_TEAM = F64CG297K7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Please Allow the use of camera to access the app features";
+				INFOPLIST_FILE = BuahHati/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow the usage of camera to use the app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
