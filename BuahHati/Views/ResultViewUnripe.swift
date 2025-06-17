@@ -1,13 +1,12 @@
 import SwiftUI
 
-struct ResultView: View {
-    let ripenessTarget: Ripeness
+struct ResultViewUnripe: View {
     let recipes: [Recipe]
 
     @State private var isShowingRecipeList = false
 
     var filteredRecipes: [Recipe] {
-        recipes.filter { $0.ripeness.contains(ripenessTarget) }
+        recipes.filter { $0.ripeness.contains(.unripe) }
     }
 
     var body: some View {
@@ -16,7 +15,7 @@ struct ResultView: View {
                 Color("BackgroundColor").ignoresSafeArea()
 
                 VStack(spacing: 0) {
-                    // MARK: Hijau Atas dengan Wave
+                    // MARK: Wave Header
                     ZStack {
                         WaveShape()
                             .fill(Color("PrimaryColor"))
@@ -42,11 +41,11 @@ struct ResultView: View {
                                 .scaledToFit()
                                 .frame(width: 110, height: 110)
 
-                            Text("Sudah Matang")
+                            Text("Belum Matang")
                                 .font(.system(size: 28, weight: .bold))
                                 .foregroundColor(.white)
 
-                            Text("Estimasi busuk dalam 3 hari")
+                            Text("Estimasi matang dalam 3–4 hari")
                                 .font(.subheadline)
                                 .foregroundColor(.white)
                         }
@@ -54,9 +53,9 @@ struct ResultView: View {
 
                     Spacer()
 
-                    // MARK: Section Putih
+                    // MARK: Main Content
                     VStack(spacing: 20) {
-                        Text("Yey! Alpukat kamu pas banget nih. Cocok buat langsung dimakan atau diolah~")
+                        Text("Wah, alpukat kamu belum siap nih. Tapi bisa ditunggu kok. Sambil nunggu, coba deh resep ini~ 🍽️")
                             .font(.body)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal)
@@ -96,7 +95,7 @@ struct ResultView: View {
                             }
                             .padding(.horizontal)
 
-                            Text("sesuai kematangan alpukatmu")
+                            Text("yang bisa dicoba sambil menunggu alpukat matang")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                                 .padding(.horizontal)
@@ -152,6 +151,7 @@ struct ResultView: View {
 
                 Spacer()
 
+                // MARK: Bottom Tab
                 HStack {
                     Spacer()
                     Image(systemName: "house.fill")
@@ -178,69 +178,47 @@ struct ResultView: View {
     }
 }
 
-
 #Preview {
     let sampleFruit = Fruit(name: "Avocado")
 
-    let sampleRecipeList: [Recipe] = [
+    let sampleRecipes: [Recipe] = [
         Recipe(
-            name: "Guaga Mole",
-            ripeness: [.ripeFirstPhase],
+            name: "Avocado Pickles",
+            ripeness: [.unripe],
             details: "Step 1|Step 2|Step 3",
-            ingredients: "Alpukat|Tomat|Bawang|Jeruk Nipis",
-            tools: "Mangkok|Garpu",
+            ingredients: "Alpukat|Cuka|Bawang",
+            tools: "Panci|Wadah",
             difficulty: 1,
-            time: 30,
-            portion: 2,
+            time: 20,
+            portion: 3,
             fruit: sampleFruit,
-            image: "HomescreenLogo",
+            image: "AvocadoPickle",
             nutrients: [
-                NutrientDetail(nutrient: Nutrient(name: "Kalori"), value: 120, uom: "kal"),
-                NutrientDetail(nutrient: Nutrient(name: "Protein"), value: 4, uom: "g"),
-                NutrientDetail(nutrient: Nutrient(name: "Lemak"), value: 8, uom: "g"),
-                NutrientDetail(nutrient: Nutrient(name: "Karbo"), value: 10, uom: "g")
+                NutrientDetail(nutrient: Nutrient(name: "Kalori"), value: 80, uom: "kal"),
+                NutrientDetail(nutrient: Nutrient(name: "Lemak"), value: 7, uom: "g"),
+                NutrientDetail(nutrient: Nutrient(name: "Protein"), value: 1, uom: "g"),
+                NutrientDetail(nutrient: Nutrient(name: "Karbo"), value: 5, uom: "g")
             ]
         ),
         Recipe(
-            name: "Banana Pancakes",
-            ripeness: [.ripeFirstPhase],
+            name: "Avocado Stir-Fry",
+            ripeness: [.unripe],
             details: "Step 1|Step 2|Step 3",
-            ingredients: "Alpukat|Tomat|Bawang|Jeruk Nipis",
-            tools: "Mangkok|Garpu",
-            difficulty: 1,
-            time: 30,
-            portion: 2,
+            ingredients: "Alpukat|Ayam|Sayuran",
+            tools: "Wok|Mangkuk",
+            difficulty: 2,
+            time: 35,
+            portion: 4,
             fruit: sampleFruit,
-            image: "HomescreenLogo",
+            image: "AvocadoStirFry",
             nutrients: [
-                NutrientDetail(nutrient: Nutrient(name: "Kalori"), value: 120, uom: "kal"),
-                NutrientDetail(nutrient: Nutrient(name: "Protein"), value: 4, uom: "g"),
-                NutrientDetail(nutrient: Nutrient(name: "Lemak"), value: 8, uom: "g"),
-                NutrientDetail(nutrient: Nutrient(name: "Karbo"), value: 10, uom: "g")
-            ]
-        ),
-        Recipe(
-            name: "Nasi Goreng Avocado",
-            ripeness: [.ripeFirstPhase],
-            details: "Step 1|Step 2|Step 3",
-            ingredients: "Alpukat|Tomat|Bawang|Jeruk Nipis",
-            tools: "Mangkok|Garpu",
-            difficulty: 1,
-            time: 30,
-            portion: 2,
-            fruit: sampleFruit,
-            image: "HomescreenLogo",
-            nutrients: [
-                NutrientDetail(nutrient: Nutrient(name: "Kalori"), value: 120, uom: "kal"),
-                NutrientDetail(nutrient: Nutrient(name: "Protein"), value: 4, uom: "g"),
-                NutrientDetail(nutrient: Nutrient(name: "Lemak"), value: 8, uom: "g"),
-                NutrientDetail(nutrient: Nutrient(name: "Karbo"), value: 10, uom: "g")
+                NutrientDetail(nutrient: Nutrient(name: "Kalori"), value: 300, uom: "kal"),
+                NutrientDetail(nutrient: Nutrient(name: "Lemak"), value: 18, uom: "g"),
+                NutrientDetail(nutrient: Nutrient(name: "Protein"), value: 12, uom: "g"),
+                NutrientDetail(nutrient: Nutrient(name: "Karbo"), value: 20, uom: "g")
             ]
         )
     ]
-    
-    ResultView(
-        ripenessTarget: .ripeFirstPhase,
-        recipes: sampleRecipeList
-    )
+
+    return ResultViewUnripe(recipes: sampleRecipes)
 }
