@@ -84,7 +84,7 @@ struct StorageInstructionView: View {
                         .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
                         // ------------------------------- //
                         
-                        Text("Storage Instruction")
+                        Text("Storage Instructions")
                             .font(.title2)
                             .fontWeight(.bold)
                             .foregroundColor(.primary)
