@@ -174,10 +174,10 @@ struct StorageInstructionView: View {
                                 }
 
                             }
+                            .background(Image("BackgroundOverlay"))
                             .padding(16)
                             .cornerRadius(16)
                         }
-                        .background(Image("BackgroundOverlay"))
                         .background(Color.white)
                         .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
                         // ------------------------------- //
@@ -320,8 +320,8 @@ struct StorageInstructionView: View {
                                 }
 
                             }
-                            .padding(16)
                             .background(Image("BackgroundOverlay"))
+                            .padding(16)
                             .cornerRadius(16)
 //                            .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
                         }
