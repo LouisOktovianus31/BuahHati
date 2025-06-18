@@ -8,6 +8,10 @@
 import Foundation
 import SwiftUI
 
+enum HomeViewDestination {
+    case scanGuide
+}
+
 public struct HomeView: View {
     @State private var navigationPath = NavigationPath()
     
@@ -48,7 +52,7 @@ public struct HomeView: View {
                         Button(action: {
                             // NAVIGATE TO OTHER VIEW
                             print("Kepencet")
-                            navigationPath.append("ScanGuide")
+                            navigationPath.append(HomeViewDestination.scanGuide)
                             
                         }) {
                             Circle()
@@ -61,8 +65,8 @@ public struct HomeView: View {
                 }
             }
             .navigationBarHidden(true)
-            .navigationDestination(for: String.self) { destination in
-                if destination == "ScanGuide" {
+            .navigationDestination(for: HomeViewDestination.self) { destination in
+                if destination == .scanGuide {
                     ScanGuideView(navigationPath: $navigationPath)
                 }
             }
