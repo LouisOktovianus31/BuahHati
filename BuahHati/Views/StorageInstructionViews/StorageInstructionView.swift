@@ -332,9 +332,9 @@ struct StorageInstructionView: View {
                     }.padding(16)
                 }
             case 2:
-                ScrollView{
+                ScrollView {
                     // MARK : SEGMENT BELUM MATANG, MASIH HARD CODE BGT
-                    VStack(alignment: .leading, ){
+                    VStack(alignment: .leading) {
                         // ----- CARD TINGKAT MATANG ----- //
                         HStack(alignment: .center, spacing: 12) {
                             // Image
@@ -361,11 +361,11 @@ struct StorageInstructionView: View {
                                         .font(.body)
                                         .foregroundColor(.primary)
 
-                //                    ForEach(characteristics, id: \.self) { characteristic in
-                //                        Text(characteristic)
-                //                            .font(.body)
-                //                            .foregroundColor(.black)
-                //                    }
+                            //                    ForEach(characteristics, id: \.self) { characteristic in
+                            //                        Text(characteristic)
+                            //                            .font(.body)
+                            //                            .foregroundColor(.black)
+                            //                    }
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             }
@@ -383,40 +383,34 @@ struct StorageInstructionView: View {
                             .foregroundColor(.primary)
                             .padding([.top], 24)
                         
-                        // ----- CARD Satu Lagi ----- //
-                        ZStack{
+                        // ----- CARD Satu Lagi (SAME WIDTH AS ABOVE) ----- //
+                        VStack(alignment: .center, spacing: 20) {
+                            Image("WarningAvocado")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 162)
                             
-                            VStack(alignment: .center, spacing: 20) {
-                                Image("WarningAvocado")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(height: 162)
-                                
-                                Text("Careful")
-                                    .font(.title)
-                                    .fontWeight(.black)
-                                    .foregroundColor(.orange)
-                                
-                                
-                                Text("Your avocado is overripe. User it quickly before it goes bad!")
-                                    .multilineTextAlignment(.center)
-                                    .font(.body)
-                                    .foregroundColor(.primary)
-                                    .frame(width: 244, height: 48)
-                                
-                                
-                            }
-                            .padding(16)
-                            .background(Image("BackgroundOverlay"))
-                            .cornerRadius(16)
-//                            .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
+                            Text("Careful")
+                                .font(.title)
+                                .fontWeight(.black)
+                                .foregroundColor(.orange)
+                            
+                            Text("Your avocado is overripe. Use it quickly before it goes bad!")
+                                .multilineTextAlignment(.center)
+                                .font(.body)
+                                .foregroundColor(.primary)
+                                .frame(width: 244, height: 48)
                         }
-//                        .frame(width: (cardWidth), height: (cardWidth))
+                        .frame(maxWidth: .infinity)
+                        .padding(16)
+                        .background(Image("BackgroundOverlay"))
+                        .cornerRadius(16)
                         .background(Color.white)
                         .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
                         // ------------------------------- //
                         
-                    }.padding(16)
+                    }
+                    .padding(16)
                 }
                 
             default:
