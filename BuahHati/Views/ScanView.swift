@@ -8,10 +8,15 @@
 import SwiftUI
 import AVFoundation
 
+enum ScanViewDestination {
+    case result
+}
+
 struct ScanView: View {
     @StateObject private var cameraManager = CameraManager()
     @Environment(\.dismiss) private var dismiss
     
+    @Binding var navigationPath: NavigationPath
     var body: some View {
         ZStack {
             // Camera preview or captured image
@@ -66,10 +71,11 @@ struct ScanView: View {
                         .offset(y:25)
                         HStack{
                             if !cameraManager.classificationLabel.isEmpty && cameraManager.capturedImage != nil {
-                                NavigationLink(destination: ScanResultView(viewModel:  ScanResultViewModel(ripeness: cameraManager.ripeness))) {
-                                            ResultsView(label: cameraManager.classificationLabel)
-                                                .padding(.bottom, -25)
-                                }
+                                ResultsView(label: cameraManager.classificationLabel)
+                                    .padding(.bottom, -25)
+                                    .onTapGesture {
+                                        navigationPath.append(ScanViewDestination.result)
+                                    }
                             }
                         }.frame(width: 400)
                     }
@@ -80,6 +86,13 @@ struct ScanView: View {
             }
             .ignoresSafeArea()
             .toolbar(.hidden, for: .tabBar)
+            .navigationDestination(for: ScanViewDestination.self) { destination in
+                if destination == .result {
+                    
+                    ScanResultView(
+                        viewModel: ScanResultViewModel(ripeness: cameraManager.ripeness), navigationPath: $navigationPath)
+                }
+            }
         }
         .onAppear {
             print("On Appear ScanView")

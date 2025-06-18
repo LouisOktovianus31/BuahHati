@@ -10,13 +10,12 @@ import AVKit
 
 struct SplashScreenView: View {
     @State private var isActive = false
-    private let player = AVPlayer(url: Bundle.main.url(forResource: "Logo Buah Hati Splash", withExtension: "mp4")!)
+    private let player = AVPlayer(url: Bundle.main.url(forResource: "SplashVideo", withExtension: "mp4")!)
 
     var body: some View {
         Group {
             if isActive {
                 ContentView()
-                    .animation(.default)
             } else {
                 CustomPlayerView(player: player)
                     .ignoresSafeArea()

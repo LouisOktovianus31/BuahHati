@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+enum ScanGuideDestination {
+    case scanView
+}
+
 struct ScanGuideView: View {
     @Binding var navigationPath: NavigationPath
     
@@ -48,7 +52,9 @@ struct ScanGuideView: View {
                 .padding(.top, 15)
                 .padding(.horizontal, 25)
                 
-                NavigationLink(destination: ScanView()) {
+                Button {
+                    navigationPath.append(ScanGuideDestination.scanView)
+                } label: {
                     Text("Continue")
                         .padding()
                         .font(.title2)
@@ -61,9 +67,28 @@ struct ScanGuideView: View {
                 }
                 .padding(.horizontal, 25)
                 .padding(.vertical, 20)
+
+//                NavigationLink(destination: ScanView()) {
+//                    Text("Continue")
+//                        .padding()
+//                        .font(.title2)
+//                        .frame(maxWidth: .infinity)
+//                        .foregroundStyle(.white)
+//                        .background(
+//                            Capsule()
+//                                .fill(Color("PrimaryColor"))
+//                        )
+//                }
+//                .padding(.horizontal, 25)
+//                .padding(.vertical, 20)
             }
         }
-        .navigationBarHidden(true)
+        .toolbar(.hidden, for: .tabBar)
+        .navigationDestination(for: ScanGuideDestination.self) { destination in
+            if destination == .scanView {
+                ScanView(navigationPath: $navigationPath)
+            }
+        }
     }
 }
 

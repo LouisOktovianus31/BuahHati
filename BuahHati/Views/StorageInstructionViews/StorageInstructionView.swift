@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct StorageInstructionView: View {
-    @State private var selectedTab = 0
+    @State private var selectedTab: Ripeness = .unripe
 //    let screenWidth = UIScreen.main.bounds.width
 //    let horizontalPadding: CGFloat = 16
 //    let cardWidth = screenWidth - (horizontalPadding * 2)
     
-    
+    init(selectedTab: Ripeness = .unripe) {
+            self._selectedTab = State(initialValue: selectedTab)
+        }
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("How to Store")
@@ -25,9 +28,9 @@ struct StorageInstructionView: View {
 
             // Segmented Control
             Picker("Tabs", selection: $selectedTab) {
-                Text("Unripe").tag(0)
-                Text("Ripe").tag(1)
-                Text("Overripe").tag(2)
+                Text("Unripe").tag(Ripeness.unripe)
+                Text("Ripe").tag(Ripeness.ripeFirstPhase)
+                Text("Overripe").tag(Ripeness.overripe)
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding(.horizontal, 16)
@@ -38,7 +41,7 @@ struct StorageInstructionView: View {
             Spacer()
             
             switch selectedTab {
-            case 0:
+            case .unripe:
                 ScrollView{
                     // MARK : SEGMENT BELUM MATANG, MASIH HARD CODE BGT
                     VStack(alignment: .leading, ){
@@ -184,7 +187,7 @@ struct StorageInstructionView: View {
                         
                     }.padding(16)
                 }
-            case 1:
+            case .ripeFirstPhase:
                 ScrollView{
                     // MARK : SEGMENT BELUM MATANG, MASIH HARD CODE BGT
                     VStack(alignment: .leading, ){
@@ -331,7 +334,7 @@ struct StorageInstructionView: View {
                         
                     }.padding(16)
                 }
-            case 2:
+            case .overripe:
                 ScrollView {
                     // MARK : SEGMENT BELUM MATANG, MASIH HARD CODE BGT
                     VStack(alignment: .leading) {

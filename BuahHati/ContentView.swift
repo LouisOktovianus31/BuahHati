@@ -7,10 +7,10 @@ struct ContentView: View {
         appearance.backgroundColor = UIColor(named: "PrimaryColor")
 
         let itemAppearance = appearance.stackedLayoutAppearance
-        itemAppearance.normal.iconColor = UIColor.black
+        itemAppearance.normal.iconColor = UIColor(Color("InactiveColor"))
         itemAppearance.selected.iconColor = UIColor.white
 
-        itemAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.black]
+        itemAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor(Color("InactiveColor"))]
         itemAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.white]
 
         appearance.stackedLayoutAppearance = itemAppearance
@@ -39,7 +39,7 @@ struct ContentView: View {
                     Label("Store", systemImage: "archivebox")
                 }
         }
-        .ignoresSafeArea(edges: .bottom)
+//        .ignoresSafeArea(edges: .bottom)
     }
 }
 
