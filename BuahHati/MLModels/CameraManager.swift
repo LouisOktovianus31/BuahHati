@@ -130,7 +130,7 @@ class CameraManager: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleB
         }
         
         // Setup classification model (avocado_v1_60)
-        guard let classificationMLModel = try? AvocadoClassifier3_class(configuration: MLModelConfiguration()) else {
+        guard let classificationMLModel = try? FastViT_Finetuned(configuration: MLModelConfiguration()) else {
             print("Failed to load avocado_v1_60 model.")
             return
         }
