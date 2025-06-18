@@ -71,8 +71,8 @@ struct ScanView: View {
                         .offset(y:25)
                         HStack{
                             if !cameraManager.classificationLabel.isEmpty && cameraManager.capturedImage != nil {
-                                ResultsView(label: cameraManager.classificationLabel)
-                                    .padding(.bottom, -25)
+                                ResultsViewComponent(label: cameraManager.classificationLabel)
+                                    .padding(.bottom, -18)
                                     .onTapGesture {
                                         navigationPath.append(ScanViewDestination.result)
                                     }
@@ -81,7 +81,6 @@ struct ScanView: View {
                     }
                     .frame(height: 300)
                     .frame(maxHeight: .infinity, alignment: .bottom)
-//                    .background(.black.opacity(0.3))
                 }
             }
             .ignoresSafeArea()
