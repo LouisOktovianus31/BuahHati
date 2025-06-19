@@ -1,21 +1,45 @@
-//
-//  ContentView.swift
-//  BuahHati
-//
-//  Created by Louis Oktovianus on 09/06/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+    init() {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor(named: "PrimaryColor")
+
+        let itemAppearance = appearance.stackedLayoutAppearance
+        itemAppearance.normal.iconColor = UIColor(Color("InactiveColor"))
+        itemAppearance.selected.iconColor = UIColor.white
+
+        itemAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor(Color("InactiveColor"))]
+        itemAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.white]
+
+        appearance.stackedLayoutAppearance = itemAppearance
+
+   
+        UITabBar.appearance().standardAppearance = appearance
+        if #available(iOS 15.0, *) {
+            UITabBar.appearance().scrollEdgeAppearance = appearance
         }
-        .padding()
+    }
+
+    var body: some View {
+        TabView {
+            HomeView()
+                .tabItem {
+                    Label("Scan", systemImage: "camera")
+                }
+
+            RecipeListView()
+                .tabItem {
+                    Label("Recipes", systemImage: "book")
+                }
+
+            StorageInstructionView()
+                .tabItem {
+                    Label("Store", systemImage: "archivebox")
+                }
+        }
+//        .ignoresSafeArea(edges: .bottom)
     }
 }
 
