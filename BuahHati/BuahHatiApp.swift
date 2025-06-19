@@ -53,7 +53,7 @@ struct BuahHatiApp: App {
         let calories = Nutrient(name: "Calories")
         let protein = Nutrient(name: "Protein")
         let fat = Nutrient(name: "Fat")
-        let carbs = Nutrient(name: "Carbohydrates")
+        let carbs = Nutrient(name: "Carbs")
         
         // Insert base entities
         context.insert(avocado)

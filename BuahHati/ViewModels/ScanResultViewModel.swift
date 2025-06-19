@@ -33,11 +33,11 @@ class ScanResultViewModel: ObservableObject {
             case .unripe:
                 "AvocadoUnripe"
             case .ripeFirstPhase:
-                "Avocado"
+                "AvocadoRipe"
             case .overripe:
                 "AvocadoOverripe"
             default :
-                "Avocado"
+                "AvocadoRipe"
         }
     }
     
