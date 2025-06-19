@@ -54,7 +54,7 @@ struct StepSection: View {
                                 .multilineTextAlignment(.center)
                                 .foregroundColor(.gray)
 
-                            Image("Avocado")
+                            Image("AvocadoRipe")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 80, height: 80)

@@ -19,7 +19,7 @@ struct GuideCardComponent: View {
                 .cornerRadius(16)
             
             HStack(spacing: 10) {
-                Image("Avocado")
+                Image("AvocadoRipe")
                     .resizable()
                     .frame(width: 80, height: 100)
                     
