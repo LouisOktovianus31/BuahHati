@@ -6,12 +6,7 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		708F7D342E0CF5140041D18B /* .swiflint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 708F7D332E0CF5140041D18B /* .swiflint.yml */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		708F7D332E0CF5140041D18B /* .swiflint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiflint.yml; sourceTree = "<group>"; };
 		9B8A6CC22DF6775E00829654 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		BA31A0EC2DF666FD005DB81C /* BuahHati.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuahHati.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -59,7 +54,6 @@
 		BA31A0E32DF666FD005DB81C = {
 			isa = PBXGroup;
 			children = (
-				708F7D332E0CF5140041D18B /* .swiflint.yml */,
 				BA31A0EE2DF666FD005DB81C /* BuahHati */,
 				9B8A6CC12DF6775E00829654 /* Frameworks */,
 				BA31A0ED2DF666FD005DB81C /* Products */,
@@ -142,7 +136,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				708F7D342E0CF5140041D18B /* .swiflint.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
