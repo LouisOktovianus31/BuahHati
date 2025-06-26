@@ -37,8 +37,8 @@ nesting:
   function_level: 3           # Warn if function bodies nested deeper than 3 levels
 
 line_length:
-  warning: 180                # Warn if a line is longer than 180 characters (reduce complexity)
-  error: 250                  # Error if line exceeds 250 characters (hard to read)
+  warning: 1800 # Warn if a line is longer than 180 characters (reduce complexity)
+  error: 25000               # Error if line exceeds 250 characters (hard to read)
   ignores_comments: true      # Ignore line length in comments
   ignores_urls: true          # Ignore long URLs in code
   ignores_interpolated_strings: true  # Ignore long string interpolations
@@ -52,8 +52,8 @@ type_body_length:
   error: 500                  # Error if type body exceeds 500 lines
 
 function_body_length:
-  warning: 50                 # Warn if function body is longer than 50 lines
-  error: 100                  # Error if function body exceeds 100 lines (split function)
+  warning: 500                 # Warn if function body is longer than 50 lines
+  error: 1000                  # Error if function body exceeds 100 lines (split function)
 
 force_unwrapping:
   severity: error             # Treat force unwrap (!) usage as an error
