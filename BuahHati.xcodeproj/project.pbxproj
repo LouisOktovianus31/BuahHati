@@ -6,7 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		708F7D342E0CF5140041D18B /* .swiflint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 708F7D332E0CF5140041D18B /* .swiflint.yml */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		708F7D332E0CF5140041D18B /* .swiflint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiflint.yml; sourceTree = "<group>"; };
 		9B8A6CC22DF6775E00829654 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		BA31A0EC2DF666FD005DB81C /* BuahHati.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuahHati.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -54,6 +59,7 @@
 		BA31A0E32DF666FD005DB81C = {
 			isa = PBXGroup;
 			children = (
+				708F7D332E0CF5140041D18B /* .swiflint.yml */,
 				BA31A0EE2DF666FD005DB81C /* BuahHati */,
 				9B8A6CC12DF6775E00829654 /* Frameworks */,
 				BA31A0ED2DF666FD005DB81C /* Products */,
@@ -78,6 +84,7 @@
 				BA31A0E82DF666FD005DB81C /* Sources */,
 				BA31A0E92DF666FD005DB81C /* Frameworks */,
 				BA31A0EA2DF666FD005DB81C /* Resources */,
+				708F7D322E0CF4C50041D18B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -117,6 +124,9 @@
 			);
 			mainGroup = BA31A0E32DF666FD005DB81C;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				708F7D312E0CF4AA0041D18B /* XCRemoteSwiftPackageReference "SwiftLint" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BA31A0ED2DF666FD005DB81C /* Products */;
 			projectDirPath = "";
@@ -132,10 +142,33 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				708F7D342E0CF5140041D18B /* .swiflint.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		708F7D322E0CF4C50041D18B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint t installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BA31A0E82DF666FD005DB81C /* Sources */ = {
@@ -275,8 +308,9 @@
 				CODE_SIGN_ENTITLEMENTS = BuahHati/BuahHati.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8K59B5RZ46;
+				DEVELOPMENT_TEAM = F64CG297K7;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BuahHati/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Atmin mau memantau";
@@ -311,8 +345,9 @@
 				CODE_SIGN_ENTITLEMENTS = BuahHati/BuahHati.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8K59B5RZ46;
+				DEVELOPMENT_TEAM = F64CG297K7;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BuahHati/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Atmin mau memantau";
@@ -361,6 +396,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		708F7D312E0CF4AA0041D18B /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.59.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = BA31A0E42DF666FD005DB81C /* Project object */;
 }

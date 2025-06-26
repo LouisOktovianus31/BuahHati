@@ -9,18 +9,18 @@ import Foundation
 import SwiftData
 
 @Model
-public class Recipe{
-    public var id : UUID
-    var name : String
-    var ripeness : [Ripeness]
-    var detailsRaw : String = ""
-    var ingredientsRaw : String = ""
-    var toolsRaw : String = ""
-    var difficulty : Int
-    var time : Int // satuan menit
+public class Recipe {
+    public var id: UUID
+    var name: String
+    var ripeness: [Ripeness]
+    var detailsRaw: String = ""
+    var ingredientsRaw: String = ""
+    var toolsRaw: String = ""
+    var difficulty: Int
+    var time: Int // satuan menit
     var portion: Int
-    var fruit : Fruit
-    var image : String // BISA DIUBAH
+    var fruit: Fruit
+    var image: String // BISA DIUBAH
     var nutrients: [NutrientDetail]
     var isFavorite: Bool
     

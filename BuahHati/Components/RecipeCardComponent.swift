@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RecipeCardComponent: View {
     var recipe: Recipe
-    
+
     var body: some View {
         HStack(spacing: 0) {
             Image(recipe.image)
@@ -23,7 +23,7 @@ struct RecipeCardComponent: View {
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
                     .padding(.horizontal)
-                HStack{
+                HStack {
                     Text("🕘")
                         .font(.caption)
                     Text("\(recipe.time) Minutes")
